@@ -42,7 +42,15 @@ public class Application {
     }
 
     public static int getSum(String[] numbers, int sum){
-
+        for (String str : numbers){
+            try{
+                int num = Integer.parseInt(str);
+                if (num < 0) throw new IllegalArgumentException("음수 " + str + "가 입력되었습니다");
+                sum += num;
+            }catch (NumberFormatException e){
+                throw new IllegalArgumentException("잘못된 문자열 " + str + " 이 입력되었습니다.", e);
+            }
+        }
         return sum;
     }
 }
