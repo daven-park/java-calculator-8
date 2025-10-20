@@ -2,8 +2,9 @@ package calculator;
 import camp.nextstep.edu.missionutils.Console;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 public class Application {
     public static void main(String[] args) {
@@ -21,10 +22,8 @@ public class Application {
     }
 
     public static String[] separateString(String target, ArrayList<String> separators){
-        for (String separator : separators){
-            target = target.replace(separator, " ");
-        }
-        return target.split(" ");
+        String regex = separators.stream().map(Pattern::quote).collect(Collectors.joining("|"));
+        return target.split(regex, -1);
     }
 
     public static String findCustomSeparator(String target, ArrayList<String> separators){
