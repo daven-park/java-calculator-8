@@ -11,9 +11,10 @@ public class Application {
     public static void main(String[] args) {
         String input = Console.readLine();
 
-        ArrayList<String> separators = new ArrayList<String>();
-        separators.add(":");
-        separators.add(",");
+        if (input == null || input.isBlank()) {
+            System.out.println("결과 : 0");
+            return;
+        }
 
         ArrayList<String> separators = new ArrayList<>(Arrays.asList(",", ":"));
         String customStr = findCustomSeparator(input, separators);
