@@ -28,14 +28,12 @@ public class Application {
     }
 
     public static String findCustomSeparator(String target, ArrayList<String> separators){
-        int start = target.indexOf("//");
-        int end = target.indexOf("\\n");
-
-        while (start != -1 && end != -1){
-            separators.add(String.valueOf(target.charAt(start + 2)));
-            target = target.substring(0, start) + target.substring(end + 2);
-            start = target.indexOf("//");
-            end = target.indexOf("\\n");
+        Pattern header = Pattern.compile("(?s)^//(.+?)(?:\\r?\\n|\\\\n)(.*)$");
+        Matcher m = header.matcher(target);
+        if (m.matches()) {
+            String custom = m.group(1);
+            separators.add(custom);
+            return m.group(2);
         }
 
         return target;
