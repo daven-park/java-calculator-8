@@ -2,6 +2,7 @@ package calculator;
 import camp.nextstep.edu.missionutils.Console;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -14,8 +15,8 @@ public class Application {
         separators.add(":");
         separators.add(",");
 
+        ArrayList<String> separators = new ArrayList<>(Arrays.asList(",", ":"));
         String customStr = findCustomSeparator(input, separators);
-
         String[] numbers = separateString(customStr, separators);
 
         System.out.println("결과 : " + getSum(numbers, 0));
@@ -34,14 +35,14 @@ public class Application {
             separators.add(custom);
             return m.group(2);
         }
-
         return target;
     }
 
-    public static int getSum(String[] numbers, int sum){
+    public static long getSum(String[] numbers, long sum){
+        if (numbers.length == 1 && numbers[0].isBlank()) return 0;
         for (String str : numbers){
             try{
-                int num = Integer.parseInt(str);
+                long num = Long.parseLong(str);
                 if (num < 0) throw new IllegalArgumentException("음수 " + str + "가 입력되었습니다");
                 sum += num;
             }catch (NumberFormatException e){
